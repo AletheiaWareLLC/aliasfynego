@@ -11,6 +11,10 @@ github.com/AletheiaWareLLC/bcfynego v0.0.0-20200813003346-64abc1dc5b76/go.mod h1
 github.com/AletheiaWareLLC/bcgo v0.0.0-20200510175557-3a06cf93213b/go.mod h1:falCiDlwEUzPvrhiPrr+lrDcLCx4XRu5YNyj4m6a0aY=
 github.com/AletheiaWareLLC/bcgo v0.0.0-20200516190548-459c1abf38b9 h1:aAFq4Lwk16R0Y0tZHnfckghddrSlmQChj+ExFBS2mwg=
 github.com/AletheiaWareLLC/bcgo v0.0.0-20200516190548-459c1abf38b9/go.mod h1:aqYi4+J1hrcwwPEsqYs0yNSBrnQny3B/LSrvBUKEHEg=
+github.com/AletheiaWareLLC/bcgo v0.0.0-20200820171715-f312d9e2be89 h1:t4WOubMD/2+q4imqe1l49hLIUBbbwU1dbENpa+2kJ3I=
+github.com/AletheiaWareLLC/bcgo v0.0.0-20200820171715-f312d9e2be89/go.mod h1:G5eoi1AJTc0lJMuOPQN8OsAe/G/8aY6YAzwxbVm+WFc=
+github.com/AletheiaWareLLC/bcgo v0.0.0-20200826221742-dad7042721c9 h1:2Moob8LrGbsCmLY5OSfQxkP99u3rXhHZTLa2jllyXa4=
+github.com/AletheiaWareLLC/bcgo v0.0.0-20200826221742-dad7042721c9/go.mod h1:G5eoi1AJTc0lJMuOPQN8OsAe/G/8aY6YAzwxbVm+WFc=
 github.com/AletheiaWareLLC/cryptogo v0.0.0-20200510174953-0e615f98810e/go.mod h1:5xGQjA12qwjNFD8AvA5Ml7AaxeZaRJayrAoWCOcn2pw=
 github.com/AletheiaWareLLC/cryptogo v0.0.0-20200516185501-ee82a4f19582 h1:Lc9fCUFtjUKBxF29qvl0m7MaIB7KNZPTc7TqcZufm0c=
 github.com/AletheiaWareLLC/cryptogo v0.0.0-20200516185501-ee82a4f19582/go.mod h1:SWcV7qGsxDonWxTCL8AB7M/rjpjNzmEk45adPrUtrYM=
@@ -87,6 +91,8 @@ golang.org/x/crypto v0.0.0-20200510223506-06a226fb4e37/go.mod h1:LzIPMQfyMNhhGPh
 golang.org/x/crypto v0.0.0-20200622213623-75b288015ac9/go.mod h1:LzIPMQfyMNhhGPhUkYOs5KpL4U8rLKemX1yGLhDgUto=
 golang.org/x/crypto v0.0.0-20200728195943-123391ffb6de h1:ikNHVSjEfnvz6sxdSPCaPt572qowuyMDMJLLm3Db3ig=
 golang.org/x/crypto v0.0.0-20200728195943-123391ffb6de/go.mod h1:LzIPMQfyMNhhGPhUkYOs5KpL4U8rLKemX1yGLhDgUto=
+golang.org/x/crypto v0.0.0-20200820211705-5c72a883971a h1:vclmkQCjlDX5OydZ9wv8rBCcS0QyQY66Mpf/7BZbInM=
+golang.org/x/crypto v0.0.0-20200820211705-5c72a883971a/go.mod h1:LzIPMQfyMNhhGPhUkYOs5KpL4U8rLKemX1yGLhDgUto=
 golang.org/x/exp v0.0.0-20190121172915-509febef88a4/go.mod h1:CJ0aWSM057203Lf6IL+f9T1iT9GByDxfZKAQTCR3kQA=
 golang.org/x/image v0.0.0-20190802002840-cff245a6509b/go.mod h1:FeLwcggjj3mMvU+oOTbSwawSJRM1uh48EjtB4UJZlP0=
 golang.org/x/image v0.0.0-20200430140353-33d19683fad8/go.mod h1:FeLwcggjj3mMvU+oOTbSwawSJRM1uh48EjtB4UJZlP0=
@@ -121,6 +127,10 @@ golang.org/x/sys v0.0.0-20200509044756-6aff5f38e54f/go.mod h1:h1NjWce9XRLGQEsW7w
 golang.org/x/sys v0.0.0-20200515095857-1151b9dac4a9/go.mod h1:h1NjWce9XRLGQEsW7wpKNCjG9DtNlClVuFLEZdDNbEs=
 golang.org/x/sys v0.0.0-20200812155832-6a926be9bd1d h1:QQrM/CCYEzTs91GZylDCQjGHudbPTxF/1fvXdVh5lMo=
 golang.org/x/sys v0.0.0-20200812155832-6a926be9bd1d/go.mod h1:h1NjWce9XRLGQEsW7wpKNCjG9DtNlClVuFLEZdDNbEs=
+golang.org/x/sys v0.0.0-20200819171115-d785dc25833f h1:KJuwZVtZBVzDmEDtB2zro9CXkD9O0dpCv4o2LHbQIAw=
+golang.org/x/sys v0.0.0-20200819171115-d785dc25833f/go.mod h1:h1NjWce9XRLGQEsW7wpKNCjG9DtNlClVuFLEZdDNbEs=
+golang.org/x/sys v0.0.0-20200826173525-f9321e4c35a6 h1:DvY3Zkh7KabQE/kfzMvYvKirSiguP9Q/veMtkYyf0o8=
+golang.org/x/sys v0.0.0-20200826173525-f9321e4c35a6/go.mod h1:h1NjWce9XRLGQEsW7wpKNCjG9DtNlClVuFLEZdDNbEs=
 golang.org/x/text v0.3.0/go.mod h1:NqM8EUOU14njkJ3fqMW+pc6Ldnwhi/IjpwHt7yyuwOQ=
 golang.org/x/text v0.3.2/go.mod h1:bEr9sfX3Q8Zfm5fL9x+3itogRgK3+ptLWKqgva+5dAk=
 golang.org/x/text v0.3.3 h1:cokOdA+Jmi5PJGXLlLllQSgYigAEfHXJAERHVMaCc2k=

@@ -71,12 +71,7 @@ func main() {
 		}
 		// Open Alias channel
 		aliases := aliasgo.OpenAliasChannel()
-		// Load channel from cache
-		if err := aliases.LoadCachedHead(cache); err != nil {
-			log.Println(err)
-		}
-		// Pull channel from network
-		if err := aliases.Pull(cache, network); err != nil {
+		if err := aliases.Refresh(cache, network); err != nil {
 			log.Println(err)
 		}
 		aliasList.Children = []fyne.CanvasObject{}
