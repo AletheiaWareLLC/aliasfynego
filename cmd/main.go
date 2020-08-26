@@ -40,7 +40,7 @@ func main() {
 	c := &bcfynego.BCFyneClient{
 		BCClient: bcclientgo.BCClient{
 			Peers: []string{
-				bcgo.BC_HOST_TEST, // Add BC test node as peer
+				bcgo.GetBCHost(), // Add BC host as peer
 			},
 		},
 		App:    a,
