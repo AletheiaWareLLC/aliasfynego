@@ -21,4 +21,12 @@ set -x
 go fmt $GOPATH/src/github.com/AletheiaWareLLC/aliasfynego/...
 go vet $GOPATH/src/github.com/AletheiaWareLLC/aliasfynego/...
 go test $GOPATH/src/github.com/AletheiaWareLLC/aliasfynego/...
-go run github.com/AletheiaWareLLC/aliasfynego/cmd $@
+mkdir -p fyne-cross/logs
+(fyne-cross android -app-id com.aletheiaware.alias -debug -icon ./ui/data/logo.png -output Alias_unaligned ./cmd/ >./fyne-cross/logs/android 2>&1 && cd $GOPATH/src/github.com/AletheiaWareLLC/aliasfynego/fyne-cross/dist/android && ${ANDROID_HOME}/build-tools/28.0.3/zipalign -f 4 Alias_unaligned.apk Alias.apk) &
+#fyne-cross darwin -app-id com.aletheiaware.alias -debug -icon ./ui/data/logo.png -output Alias ./cmd/ >./fyne-cross/logs/darwin 2>&1 &
+fyne-cross linux -app-id com.aletheiaware.alias -debug -icon ./ui/data/logo.png -output alias ./cmd/ >./fyne-cross/logs/linux 2>&1 &
+#fyne-cross windows -app-id com.aletheiaware.alias -debug -icon ./ui/data/logo.png -output Alias ./cmd/ >./fyne-cross/logs/windows 2>&1 &
+for job in `jobs -p`
+do
+    wait $job
+done

@@ -17,6 +17,7 @@
 set -e
 set -x
 
+(cd $GOPATH/src/github.com/AletheiaWareLLC/aliasfynego/ui/data/ && ./gen.sh)
 go fmt $GOPATH/src/github.com/AletheiaWareLLC/aliasfynego/...
 go test $GOPATH/src/github.com/AletheiaWareLLC/aliasfynego/...
-go build github.com/AletheiaWareLLC/aliasfynego
+go build -o $GOPATH/bin/aliasfynego github.com/AletheiaWareLLC/aliasfynego/cmd

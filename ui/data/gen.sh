@@ -17,8 +17,8 @@
 set -e
 set -x
 
-(cd $GOPATH/src/github.com/AletheiaWareLLC/aliasfynego/ui/data/ && ./gen.sh)
-go fmt $GOPATH/src/github.com/AletheiaWareLLC/aliasfynego/...
-go vet $GOPATH/src/github.com/AletheiaWareLLC/aliasfynego/...
-go test $GOPATH/src/github.com/AletheiaWareLLC/aliasfynego/...
-go run github.com/AletheiaWareLLC/aliasfynego/cmd $@
+
+#fyne bundle -name AliasIcon -package data alias.svg > icon.go
+#fyne bundle -append -name FooBarIcon -package data foobar.svg >> icon.go
+
+rsvg-convert -h 512 logo.svg > logo.png

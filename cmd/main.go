@@ -20,10 +20,14 @@ import (
 	"fyne.io/fyne"
 	"fyne.io/fyne/app"
 	"fyne.io/fyne/layout"
+	"fyne.io/fyne/theme"
 	"fyne.io/fyne/widget"
+	"github.com/AletheiaWareLLC/aliasfynego"
+	"github.com/AletheiaWareLLC/aliasfynego/ui"
 	"github.com/AletheiaWareLLC/aliasgo"
 	"github.com/AletheiaWareLLC/bcclientgo"
 	"github.com/AletheiaWareLLC/bcfynego"
+	bcuidata "github.com/AletheiaWareLLC/bcfynego/ui/data"
 	"github.com/AletheiaWareLLC/bcgo"
 	"log"
 )
@@ -37,65 +41,64 @@ func main() {
 	w.SetMaster()
 
 	// Create BC client
-	c := &bcfynego.BCFyneClient{
-		BCClient: bcclientgo.BCClient{
-			Peers: []string{
-				bcgo.GetBCHost(), // Add BC host as peer
-			},
+	c := &bcclientgo.BCClient{
+		Peers: []string{
+			bcgo.GetBCHost(), // Add BC host as peer
 		},
-		App:    a,
-		Window: w,
 	}
 
-	// Create a button to show the current node
-	nodeButton := widget.NewButton("Node", func() {
-		go c.ShowNode()
-	})
+	// Create Alias Fyne
+	f := &aliasfynego.AliasFyne{
+		BCFyne: bcfynego.BCFyne{
+			App:    a,
+			Window: w,
+		},
+	}
 
 	// Create a scrollable list of registered aliases
-	aliasList := widget.NewVBox()
-	aliasScroll := widget.NewScrollContainer(aliasList)
+	aliasList := f.NewList(c)
+	go refresh(f, c, aliasList)
 
-	refresh := func() {
-		// Get local cache
-		cache, err := c.GetCache()
-		if err != nil {
-			c.ShowError(err)
-			return
-		}
-		// Get global network
-		network, err := c.GetNetwork()
-		if err != nil {
-			c.ShowError(err)
-			return
-		}
-		// Open Alias channel
-		aliases := aliasgo.OpenAliasChannel()
-		if err := aliases.Refresh(cache, network); err != nil {
-			log.Println(err)
-		}
-		aliasList.Children = []fyne.CanvasObject{}
-		// Iterate Aliases and populate list
-		if err := aliasgo.IterateAliases(aliases, cache, network, func(alias *aliasgo.Alias) error {
-			aliasList.Children = append(aliasList.Children, widget.NewLabel(alias.Alias))
-			return nil
-		}); err != nil {
-			c.ShowError(err)
-			return
-		}
-		// Trigger redraw
-		aliasList.Refresh()
-	}
-	go refresh()
-
-	// Create button to refresh list
-	refreshButton := widget.NewButton("Refresh", func() {
-		go refresh()
-	})
+	toolbar := widget.NewToolbar(
+		widget.NewToolbarAction(theme.ViewRefreshIcon(), func() {
+			log.Println("Refresh List")
+			go refresh(f, c, aliasList)
+		}),
+		widget.NewToolbarSpacer(),
+		widget.NewToolbarAction(bcuidata.NewPrimaryThemedResource(bcuidata.AccountIcon), func() {
+			log.Println("Account Info")
+			go f.ShowNode(c)
+		}),
+	)
 
 	// Set window content, resize window, center window, show window, and run application
-	w.SetContent(fyne.NewContainerWithLayout(layout.NewBorderLayout(refreshButton, nodeButton, nil, nil), refreshButton, nodeButton, aliasScroll))
+	w.SetContent(fyne.NewContainerWithLayout(layout.NewBorderLayout(toolbar, nil, nil, nil), toolbar, aliasList))
 	w.Resize(fyne.NewSize(800, 600))
 	w.CenterOnScreen()
 	w.ShowAndRun()
+}
+
+func refresh(fyne *aliasfynego.AliasFyne, client *bcclientgo.BCClient, list *ui.AliasList) {
+	// Get local cache
+	cache, err := client.GetCache()
+	if err != nil {
+		fyne.ShowError(err)
+		return
+	}
+	// Get global network
+	network, err := client.GetNetwork()
+	if err != nil {
+		fyne.ShowError(err)
+		return
+	}
+	// Open Alias channel
+	aliases := aliasgo.OpenAliasChannel()
+	if err := aliases.Refresh(cache, network); err != nil {
+		log.Println(err)
+	}
+	if err := aliasgo.IterateAliases(aliases, cache, network, list.Update); err != nil {
+		fyne.ShowError(err)
+		return
+	}
+	list.Refresh()
 }
