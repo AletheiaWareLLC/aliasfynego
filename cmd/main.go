@@ -17,6 +17,7 @@
 package main
 
 import (
+	"flag"
 	"fyne.io/fyne"
 	"fyne.io/fyne/app"
 	"fyne.io/fyne/layout"
@@ -32,6 +33,8 @@ import (
 	"log"
 )
 
+var peer = flag.String("peer", "", "Alias peer")
+
 func main() {
 	// Create application
 	a := app.New()
@@ -40,11 +43,16 @@ func main() {
 	w := a.NewWindow("Alias")
 	w.SetMaster()
 
+	peers := bcgo.SplitRemoveEmpty(*peer, ",")
+	if len(peers) == 0 {
+		peers = append(peers,
+			bcgo.GetBCHost(), // Add BC host as peer
+		)
+	}
+
 	// Create BC client
 	c := &bcclientgo.BCClient{
-		Peers: []string{
-			bcgo.GetBCHost(), // Add BC host as peer
-		},
+		Peers: peers,
 	}
 
 	// Create Alias Fyne
