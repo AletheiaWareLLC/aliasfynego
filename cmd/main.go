@@ -75,7 +75,7 @@ func main() {
 		widget.NewToolbarSpacer(),
 		widget.NewToolbarAction(bcuidata.NewPrimaryThemedResource(bcuidata.AccountIcon), func() {
 			log.Println("Account Info")
-			go f.ShowNode(c)
+			go f.ShowAccount(c)
 		}),
 	)
 

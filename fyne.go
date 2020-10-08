@@ -18,8 +18,10 @@ package aliasfynego
 
 import (
 	"encoding/base64"
-	"fmt"
+	"fyne.io/fyne"
 	"fyne.io/fyne/dialog"
+	"fyne.io/fyne/theme"
+	"fyne.io/fyne/widget"
 	"github.com/AletheiaWareLLC/aliasfynego/ui"
 	"github.com/AletheiaWareLLC/aliasgo"
 	"github.com/AletheiaWareLLC/bcclientgo"
@@ -37,10 +39,32 @@ func (f *AliasFyne) NewList(client *bcclientgo.BCClient) *ui.AliasList {
 }
 
 func (f *AliasFyne) ShowAlias(client *bcclientgo.BCClient, id string, alias *aliasgo.Alias) {
-	info := fmt.Sprintf("Alias: %s\nPublicKey: %s\n", alias.Alias, base64.RawURLEncoding.EncodeToString(alias.PublicKey))
+	publicKeyBase64 := base64.RawURLEncoding.EncodeToString(alias.PublicKey)
+	var publicKeyRunes []rune
+	for i, r := range []rune(publicKeyBase64) {
+		if i > 0 && i%64 == 0 {
+			publicKeyRunes = append(publicKeyRunes, '\n')
+		}
+		publicKeyRunes = append(publicKeyRunes, r)
+	}
+
+	aliasScroller := widget.NewHScrollContainer(widget.NewLabel(alias.Alias))
+	publicKeyScroller := widget.NewHScrollContainer(widget.NewLabelWithStyle(string(publicKeyRunes), fyne.TextAlignLeading, fyne.TextStyle{Monospace: true}))
+	publicKeyScroller.SetMinSize(fyne.NewSize(10*theme.TextSize(), 0))
+
+	form := widget.NewForm(
+		widget.NewFormItem(
+			"Alias",
+			aliasScroller,
+		),
+		widget.NewFormItem(
+			"Public Key",
+			publicKeyScroller,
+		),
+	)
 	if f.Dialog != nil {
 		f.Dialog.Hide()
 	}
-	f.Dialog = dialog.NewInformation("Alias", info, f.Window)
+	f.Dialog = dialog.NewCustom("Alias", "OK", form, f.Window)
 	f.Dialog.Show()
 }
