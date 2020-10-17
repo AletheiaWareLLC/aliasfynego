@@ -32,6 +32,12 @@ type AliasFyne struct {
 	bcfynego.BCFyne
 }
 
+func NewAliasFyne(a fyne.App, w fyne.Window) *AliasFyne {
+	return &AliasFyne{
+		BCFyne: *bcfynego.NewBCFyne(a, w),
+	}
+}
+
 func (f *AliasFyne) NewList(client *bcclientgo.BCClient) *ui.AliasList {
 	return ui.NewAliasList(func(id string, alias *aliasgo.Alias) {
 		f.ShowAlias(client, id, alias)

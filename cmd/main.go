@@ -27,7 +27,6 @@ import (
 	"github.com/AletheiaWareLLC/aliasfynego/ui"
 	"github.com/AletheiaWareLLC/aliasgo"
 	"github.com/AletheiaWareLLC/bcclientgo"
-	"github.com/AletheiaWareLLC/bcfynego"
 	bcuidata "github.com/AletheiaWareLLC/bcfynego/ui/data"
 	"github.com/AletheiaWareLLC/bcgo"
 	"log"
@@ -43,25 +42,11 @@ func main() {
 	w := a.NewWindow("Alias")
 	w.SetMaster()
 
-	peers := bcgo.SplitRemoveEmpty(*peer, ",")
-	if len(peers) == 0 {
-		peers = append(peers,
-			bcgo.GetBCHost(), // Add BC host as peer
-		)
-	}
-
 	// Create BC client
-	c := &bcclientgo.BCClient{
-		Peers: peers,
-	}
+	c := bcclientgo.NewBCClient(bcgo.SplitRemoveEmpty(*peer, ",")...)
 
 	// Create Alias Fyne
-	f := &aliasfynego.AliasFyne{
-		BCFyne: bcfynego.BCFyne{
-			App:    a,
-			Window: w,
-		},
-	}
+	f := aliasfynego.NewAliasFyne(a, w)
 
 	// Create a scrollable list of registered aliases
 	aliasList := f.NewList(c)
