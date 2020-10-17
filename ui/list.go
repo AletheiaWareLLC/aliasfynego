@@ -51,7 +51,7 @@ func NewAliasList(callback func(id string, alias *aliasgo.Alias)) *AliasList {
 			item.(*widget.Label).SetText(a.Alias)
 		}
 	}
-	l.OnItemSelected = func(index int) {
+	l.OnSelectionChanged = func(index int) {
 		callback(l.ids[index], l.aliases[l.ids[index]])
 	}
 	l.ExtendBaseWidget(l)
