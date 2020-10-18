@@ -44,9 +44,8 @@ func main() {
 	// Create Application
 	a := app.New()
 
-	// Create window
+	// Create Window
 	w := a.NewWindow("Alias")
-	w.SetMaster()
 
 	// Create BC client
 	c := bcclientgo.NewBCClient(bcgo.SplitRemoveEmpty(*peer, ",")...)
