@@ -22,6 +22,7 @@ import (
 	"fyne.io/fyne/widget"
 	"github.com/AletheiaWareLLC/aliasgo"
 	"github.com/AletheiaWareLLC/bcgo"
+	"log"
 	"sort"
 )
 
@@ -32,7 +33,7 @@ type AliasList struct {
 	timestamps map[string]uint64
 }
 
-func NewAliasList(callback func(id string, alias *aliasgo.Alias)) *AliasList {
+func NewAliasList(callback func(id string, timestamp uint64, alias *aliasgo.Alias)) *AliasList {
 	l := &AliasList{
 		aliases:    make(map[string]*aliasgo.Alias),
 		timestamps: make(map[string]uint64),
@@ -52,13 +53,16 @@ func NewAliasList(callback func(id string, alias *aliasgo.Alias)) *AliasList {
 		}
 	}
 	l.OnSelectionChanged = func(index int) {
-		callback(l.ids[index], l.aliases[l.ids[index]])
+		id := l.ids[index]
+		if a, ok := l.aliases[id]; ok {
+			callback(id, l.timestamps[id], a)
+		}
 	}
 	l.ExtendBaseWidget(l)
 	return l
 }
 
-func (l *AliasList) Update(entry *bcgo.BlockEntry, alias *aliasgo.Alias) error {
+func (l *AliasList) Add(entry *bcgo.BlockEntry, alias *aliasgo.Alias) error {
 	id := base64.RawURLEncoding.EncodeToString(entry.RecordHash)
 	if _, ok := l.aliases[id]; !ok {
 		l.aliases[id] = alias
@@ -68,5 +72,18 @@ func (l *AliasList) Update(entry *bcgo.BlockEntry, alias *aliasgo.Alias) error {
 			return l.timestamps[l.ids[i]] < l.timestamps[l.ids[j]]
 		})
 	}
+	return nil
+}
+
+func (l *AliasList) Update(cache bcgo.Cache, network bcgo.Network) error {
+	// Open Alias channel
+	aliases := aliasgo.OpenAliasChannel()
+	if err := aliases.Refresh(cache, network); err != nil {
+		log.Println(err)
+	}
+	if err := aliasgo.IterateAliases(aliases, cache, network, l.Add); err != nil {
+		return err
+	}
+	l.Refresh()
 	return nil
 }

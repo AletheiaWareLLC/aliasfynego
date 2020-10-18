@@ -49,13 +49,33 @@ func main() {
 	f := aliasfynego.NewAliasFyne(a, w)
 
 	// Create a scrollable list of registered aliases
-	aliasList := f.NewList(c)
-	go refresh(f, c, aliasList)
+	l := ui.NewAliasList(func(id string, timestamp uint64, alias *aliasgo.Alias) {
+		f.ShowAlias(c, id, timestamp, alias)
+	})
 
-	toolbar := widget.NewToolbar(
+	refreshList := func() {
+		// Get local cache
+		cache, err := c.GetCache()
+		if err != nil {
+			f.ShowError(err)
+			return
+		}
+		// Get global network
+		network, err := c.GetNetwork()
+		if err != nil {
+			f.ShowError(err)
+			return
+		}
+		l.Update(cache, network)
+	}
+
+	// Populate list in goroutine
+	go refreshList()
+
+	t := widget.NewToolbar(
 		widget.NewToolbarAction(theme.ViewRefreshIcon(), func() {
 			log.Println("Refresh List")
-			go refresh(f, c, aliasList)
+			go refreshList()
 		}),
 		widget.NewToolbarSpacer(),
 		widget.NewToolbarAction(bcuidata.NewPrimaryThemedResource(bcuidata.AccountIcon), func() {
@@ -65,33 +85,8 @@ func main() {
 	)
 
 	// Set window content, resize window, center window, show window, and run application
-	w.SetContent(fyne.NewContainerWithLayout(layout.NewBorderLayout(toolbar, nil, nil, nil), toolbar, aliasList))
+	w.SetContent(fyne.NewContainerWithLayout(layout.NewBorderLayout(t, nil, nil, nil), t, l))
 	w.Resize(fyne.NewSize(800, 600))
 	w.CenterOnScreen()
 	w.ShowAndRun()
-}
-
-func refresh(fyne *aliasfynego.AliasFyne, client *bcclientgo.BCClient, list *ui.AliasList) {
-	// Get local cache
-	cache, err := client.GetCache()
-	if err != nil {
-		fyne.ShowError(err)
-		return
-	}
-	// Get global network
-	network, err := client.GetNetwork()
-	if err != nil {
-		fyne.ShowError(err)
-		return
-	}
-	// Open Alias channel
-	aliases := aliasgo.OpenAliasChannel()
-	if err := aliases.Refresh(cache, network); err != nil {
-		log.Println(err)
-	}
-	if err := aliasgo.IterateAliases(aliases, cache, network, list.Update); err != nil {
-		fyne.ShowError(err)
-		return
-	}
-	list.Refresh()
 }

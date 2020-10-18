@@ -22,10 +22,10 @@ import (
 	"fyne.io/fyne/dialog"
 	"fyne.io/fyne/theme"
 	"fyne.io/fyne/widget"
-	"github.com/AletheiaWareLLC/aliasfynego/ui"
 	"github.com/AletheiaWareLLC/aliasgo"
 	"github.com/AletheiaWareLLC/bcclientgo"
 	"github.com/AletheiaWareLLC/bcfynego"
+	"github.com/AletheiaWareLLC/bcgo"
 )
 
 type AliasFyne struct {
@@ -38,13 +38,7 @@ func NewAliasFyne(a fyne.App, w fyne.Window) *AliasFyne {
 	}
 }
 
-func (f *AliasFyne) NewList(client *bcclientgo.BCClient) *ui.AliasList {
-	return ui.NewAliasList(func(id string, alias *aliasgo.Alias) {
-		f.ShowAlias(client, id, alias)
-	})
-}
-
-func (f *AliasFyne) ShowAlias(client *bcclientgo.BCClient, id string, alias *aliasgo.Alias) {
+func (f *AliasFyne) ShowAlias(client *bcclientgo.BCClient, id string, timestamp uint64, alias *aliasgo.Alias) {
 	publicKeyBase64 := base64.RawURLEncoding.EncodeToString(alias.PublicKey)
 	var publicKeyRunes []rune
 	for i, r := range []rune(publicKeyBase64) {
@@ -59,6 +53,10 @@ func (f *AliasFyne) ShowAlias(client *bcclientgo.BCClient, id string, alias *ali
 	publicKeyScroller.SetMinSize(fyne.NewSize(10*theme.TextSize(), 0))
 
 	form := widget.NewForm(
+		widget.NewFormItem(
+			"Timestamp",
+			widget.NewLabel(bcgo.TimestampToString(timestamp)),
+		),
 		widget.NewFormItem(
 			"Alias",
 			aliasScroller,
