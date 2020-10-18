@@ -35,7 +35,10 @@ import (
 var peer = flag.String("peer", "", "Alias peer")
 
 func main() {
-	// Create application
+	// Parse command line flags
+	flag.Parse()
+
+	// Create Application
 	a := app.New()
 
 	// Create window
