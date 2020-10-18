@@ -55,7 +55,7 @@ func main() {
 
 	// Create a scrollable list of registered aliases
 	l := ui.NewAliasList(func(id string, timestamp uint64, alias *aliasgo.Alias) {
-		f.ShowAlias(c, id, timestamp, alias)
+		go f.ShowAlias(c, id, timestamp, alias)
 	})
 
 	refreshList := func() {
