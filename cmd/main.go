@@ -84,8 +84,12 @@ func main() {
 		}),
 		widget.NewToolbarSpacer(),
 		widget.NewToolbarAction(bcuidata.NewPrimaryThemedResource(bcuidata.AccountIcon), func() {
-			log.Println("Account Info")
+			log.Println("Show Account")
 			go f.ShowAccount(c)
+		}),
+		widget.NewToolbarAction(theme.HelpIcon(), func() {
+			log.Println("Display Help")
+			go f.ShowHelp(c)
 		}),
 	)
 

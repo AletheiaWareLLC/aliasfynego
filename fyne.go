@@ -18,6 +18,7 @@ package aliasfynego
 
 import (
 	"encoding/base64"
+	"fmt"
 	"fyne.io/fyne"
 	"fyne.io/fyne/dialog"
 	"fyne.io/fyne/theme"
@@ -71,4 +72,8 @@ func (f *AliasFyne) ShowAlias(client *bcclientgo.BCClient, id string, timestamp 
 	}
 	f.Dialog = dialog.NewCustom("Alias", "OK", form, f.Window)
 	f.Dialog.Show()
+}
+
+func (f *AliasFyne) ShowHelp(client *bcclientgo.BCClient) {
+	f.ShowError(fmt.Errorf("Not yet implemented: %s", "AliasFyne.ShowHelp"))
 }
