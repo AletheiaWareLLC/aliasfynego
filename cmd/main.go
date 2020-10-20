@@ -30,6 +30,7 @@ import (
 	bcuidata "github.com/AletheiaWareLLC/bcfynego/ui/data"
 	"github.com/AletheiaWareLLC/bcgo"
 	"log"
+	"os"
 )
 
 var peer = flag.String("peer", "", "Alias peer")
