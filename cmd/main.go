@@ -47,6 +47,11 @@ func main() {
 	// Create Window
 	w := a.NewWindow("Alias")
 
+	// Set environment variable
+	if a.Settings().BuildType() == fyne.ReleaseBuild {
+		os.Setenv("LIVE", "true")
+	}
+
 	// Create BC client
 	c := bcclientgo.NewBCClient(bcgo.SplitRemoveEmpty(*peer, ",")...)
 
