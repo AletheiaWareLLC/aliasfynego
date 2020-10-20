@@ -93,7 +93,7 @@ func main() {
 			go f.ShowAccount(c)
 		}),
 		widget.NewToolbarAction(theme.HelpIcon(), func() {
-			log.Println("Display Help")
+			log.Println("Show Help")
 			go f.ShowHelp(c)
 		}),
 	)
