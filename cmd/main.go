@@ -27,7 +27,7 @@ import (
 	"github.com/AletheiaWareLLC/aliasfynego/ui"
 	"github.com/AletheiaWareLLC/aliasgo"
 	"github.com/AletheiaWareLLC/bcclientgo"
-	bcuidata "github.com/AletheiaWareLLC/bcfynego/ui/data"
+	"github.com/AletheiaWareLLC/bcfynego/ui/data"
 	"github.com/AletheiaWareLLC/bcgo"
 	"log"
 	"os"
@@ -89,7 +89,7 @@ func main() {
 			go refreshList()
 		}),
 		widget.NewToolbarSpacer(),
-		widget.NewToolbarAction(bcuidata.NewPrimaryThemedResource(bcuidata.AccountIcon), func() {
+		widget.NewToolbarAction(data.NewPrimaryThemedResource(data.AccountIcon), func() {
 			log.Println("Show Account")
 			go f.ShowAccount(c)
 		}),
