@@ -46,16 +46,19 @@ func NewAliasList(callback func(id string, timestamp uint64, alias *aliasgo.Alia
 	l.Length = func() int {
 		return len(l.ids)
 	}
-	l.UpdateItem = func(index int, item fyne.CanvasObject) {
-		a, ok := l.aliases[l.ids[index]]
+	l.UpdateItem = func(id widget.ListItemID, item fyne.CanvasObject) {
+		a, ok := l.aliases[l.ids[id]]
 		if ok {
 			item.(*widget.Label).SetText(a.Alias)
 		}
 	}
-	l.OnSelectionChanged = func(index int) {
-		id := l.ids[index]
-		if a, ok := l.aliases[id]; ok {
-			callback(id, l.timestamps[id], a)
+	l.OnSelected = func(id widget.ListItemID) {
+		if id < 0 || id > len(l.ids)-1 {
+			return
+		}
+		i := l.ids[id]
+		if a, ok := l.aliases[i]; ok {
+			callback(i, l.timestamps[i], a)
 		}
 	}
 	l.ExtendBaseWidget(l)

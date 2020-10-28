@@ -49,7 +49,7 @@ func main() {
 	w := a.NewWindow("Alias")
 
 	// Set environment variable
-	if a.Settings().BuildType() == fyne.ReleaseBuild {
+	if a.Settings().BuildType() == fyne.BuildRelease {
 		os.Setenv("LIVE", "true")
 	}
 
