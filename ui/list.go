@@ -47,17 +47,20 @@ func NewAliasList(callback func(id string, timestamp uint64, alias *aliasgo.Alia
 		return len(l.ids)
 	}
 	l.UpdateItem = func(id widget.ListItemID, item fyne.CanvasObject) {
+		if id < 0 || id >= len(l.ids) {
+			return
+		}
 		a, ok := l.aliases[l.ids[id]]
 		if ok {
 			item.(*widget.Label).SetText(a.Alias)
 		}
 	}
 	l.OnSelected = func(id widget.ListItemID) {
-		if id < 0 || id > len(l.ids)-1 {
+		if id < 0 || id >= len(l.ids) {
 			return
 		}
 		i := l.ids[id]
-		if a, ok := l.aliases[i]; ok {
+		if a, ok := l.aliases[i]; ok && callback != nil {
 			callback(i, l.timestamps[i], a)
 		}
 	}

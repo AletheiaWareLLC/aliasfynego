@@ -20,7 +20,7 @@ import (
 	"flag"
 	"fyne.io/fyne"
 	"fyne.io/fyne/app"
-	"fyne.io/fyne/layout"
+	"fyne.io/fyne/container"
 	"fyne.io/fyne/theme"
 	"fyne.io/fyne/widget"
 	"github.com/AletheiaWareLLC/aliasfynego"
@@ -85,22 +85,19 @@ func main() {
 
 	t := widget.NewToolbar(
 		widget.NewToolbarAction(theme.ViewRefreshIcon(), func() {
-			log.Println("Refresh List")
 			go refreshList()
 		}),
 		widget.NewToolbarSpacer(),
 		widget.NewToolbarAction(data.NewPrimaryThemedResource(data.AccountIcon), func() {
-			log.Println("Show Account")
 			go f.ShowAccount(c)
 		}),
 		widget.NewToolbarAction(theme.HelpIcon(), func() {
-			log.Println("Show Help")
 			go f.ShowHelp(c)
 		}),
 	)
 
 	// Set window content, resize window, center window, show window, and run application
-	w.SetContent(fyne.NewContainerWithLayout(layout.NewBorderLayout(t, nil, nil, nil), t, l))
+	w.SetContent(container.NewBorder(t, nil, nil, nil, l))
 	w.Resize(fyne.NewSize(800, 600))
 	w.CenterOnScreen()
 	w.ShowAndRun()
