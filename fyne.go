@@ -67,8 +67,8 @@ func (f *AliasFyne) ShowAlias(client *bcclientgo.BCClient, id string, timestamp 
 			publicKeyScroller,
 		),
 	)
-	if f.Dialog != nil {
-		f.Dialog.Hide()
+	if d := f.Dialog; d != nil {
+		d.Hide()
 	}
 	f.Dialog = dialog.NewCustom("Alias", "OK", form, f.Window)
 	f.Dialog.Show()
