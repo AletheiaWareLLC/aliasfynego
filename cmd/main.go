@@ -21,12 +21,14 @@ import (
 	"fyne.io/fyne"
 	"fyne.io/fyne/app"
 	"fyne.io/fyne/container"
+	"fyne.io/fyne/dialog"
 	"fyne.io/fyne/theme"
 	"fyne.io/fyne/widget"
 	"github.com/AletheiaWareLLC/aliasfynego"
 	"github.com/AletheiaWareLLC/aliasfynego/ui"
 	"github.com/AletheiaWareLLC/aliasgo"
 	"github.com/AletheiaWareLLC/bcclientgo"
+	bcui "github.com/AletheiaWareLLC/bcfynego/ui"
 	"github.com/AletheiaWareLLC/bcfynego/ui/data"
 	"github.com/AletheiaWareLLC/bcgo"
 	"log"
@@ -43,7 +45,7 @@ func main() {
 	log.SetFlags(log.LstdFlags | log.Lshortfile)
 
 	// Create Application
-	a := app.New()
+	a := app.NewWithID("com.aletheiaware.alias")
 
 	// Create Window
 	w := a.NewWindow("Alias")
@@ -95,9 +97,29 @@ func main() {
 			go f.ShowHelp(c)
 		}),
 	)
+	b := widget.NewButton("Register", func() {
+		go func() {
+			node, err := f.GetNode(c)
+			if err != nil {
+				f.ShowError(err)
+				return
+			}
+			// Show Progress Dialog
+			progress := dialog.NewProgress("Registering", "Registering "+node.Alias, f.Window)
+			progress.Show()
+			defer progress.Hide()
+			listener := &bcui.ProgressMiningListener{Func: progress.SetValue}
+
+			// Register Alias
+			if err := aliasgo.Register(node, listener); err != nil {
+				f.ShowError(err)
+				return
+			}
+		}()
+	})
 
 	// Set window content, resize window, center window, show window, and run application
-	w.SetContent(container.NewBorder(t, nil, nil, nil, l))
+	w.SetContent(container.NewBorder(t, b, nil, nil, l))
 	w.Resize(fyne.NewSize(800, 600))
 	w.CenterOnScreen()
 	w.ShowAndRun()

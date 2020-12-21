@@ -75,5 +75,6 @@ func (f *AliasFyne) ShowAlias(client *bcclientgo.BCClient, id string, timestamp 
 }
 
 func (f *AliasFyne) ShowHelp(client *bcclientgo.BCClient) {
+	// TODO
 	f.ShowError(fmt.Errorf("Not yet implemented: %s", "AliasFyne.ShowHelp"))
 }
