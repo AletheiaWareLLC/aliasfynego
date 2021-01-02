@@ -17,12 +17,12 @@
 set -e
 set -x
 
-(cd $GOPATH/src/github.com/AletheiaWareLLC/aliasfynego/ui/data/ && ./gen.sh)
-go fmt $GOPATH/src/github.com/AletheiaWareLLC/{aliasfynego,aliasfynego/...}
-go vet $GOPATH/src/github.com/AletheiaWareLLC/{aliasfynego,aliasfynego/...}
-go test $GOPATH/src/github.com/AletheiaWareLLC/{aliasfynego,aliasfynego/...}
+(cd $GOPATH/src/aletheiaware.com/aliasfynego/ui/data/ && ./gen.sh)
+go fmt $GOPATH/src/aletheiaware.com/{aliasfynego,aliasfynego/...}
+go vet $GOPATH/src/aletheiaware.com/{aliasfynego,aliasfynego/...}
+go test $GOPATH/src/aletheiaware.com/{aliasfynego,aliasfynego/...}
 ANDROID_NDK_HOME=${ANDROID_HOME}/ndk-bundle/
-(cd $GOPATH/src/github.com/AletheiaWareLLC/aliasfynego/cmd && fyne package -os android -appID com.aletheiaware.alias -icon $GOPATH/src/github.com/AletheiaWareLLC/aliasfynego/ui/data/logo.png -name Alias_unaligned)
-(cd $GOPATH/src/github.com/AletheiaWareLLC/aliasfynego/cmd && ${ANDROID_HOME}/build-tools/28.0.3/zipalign -f 4 Alias_unaligned.apk Alias.apk)
-(cd $GOPATH/src/github.com/AletheiaWareLLC/aliasfynego/cmd && adb install -r -g Alias.apk)
-(cd $GOPATH/src/github.com/AletheiaWareLLC/aliasfynego/cmd && adb logcat -c && adb logcat | tee android.log)
+(cd $GOPATH/src/aletheiaware.com/aliasfynego/cmd && fyne package -os android -appID com.aletheiaware.alias -icon $GOPATH/src/aletheiaware.com/aliasfynego/ui/data/logo.png -name Alias_unaligned)
+(cd $GOPATH/src/aletheiaware.com/aliasfynego/cmd && ${ANDROID_HOME}/build-tools/28.0.3/zipalign -f 4 Alias_unaligned.apk Alias.apk)
+(cd $GOPATH/src/aletheiaware.com/aliasfynego/cmd && adb install -r -g Alias.apk)
+(cd $GOPATH/src/aletheiaware.com/aliasfynego/cmd && adb logcat -c && adb logcat | tee android.log)

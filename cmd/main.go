@@ -17,6 +17,13 @@
 package main
 
 import (
+	"aletheiaware.com/aliasfynego"
+	"aletheiaware.com/aliasfynego/ui"
+	"aletheiaware.com/aliasgo"
+	"aletheiaware.com/bcclientgo"
+	bcui "aletheiaware.com/bcfynego/ui"
+	"aletheiaware.com/bcfynego/ui/data"
+	"aletheiaware.com/bcgo"
 	"flag"
 	"fyne.io/fyne"
 	"fyne.io/fyne/app"
@@ -24,13 +31,6 @@ import (
 	"fyne.io/fyne/dialog"
 	"fyne.io/fyne/theme"
 	"fyne.io/fyne/widget"
-	"github.com/AletheiaWareLLC/aliasfynego"
-	"github.com/AletheiaWareLLC/aliasfynego/ui"
-	"github.com/AletheiaWareLLC/aliasgo"
-	"github.com/AletheiaWareLLC/bcclientgo"
-	bcui "github.com/AletheiaWareLLC/bcfynego/ui"
-	"github.com/AletheiaWareLLC/bcfynego/ui/data"
-	"github.com/AletheiaWareLLC/bcgo"
 	"log"
 	"os"
 )

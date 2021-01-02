@@ -17,11 +17,11 @@
 package ui
 
 import (
+	"aletheiaware.com/aliasgo"
+	"aletheiaware.com/bcgo"
 	"encoding/base64"
 	"fyne.io/fyne"
 	"fyne.io/fyne/widget"
-	"github.com/AletheiaWareLLC/aliasgo"
-	"github.com/AletheiaWareLLC/bcgo"
 	"log"
 	"sort"
 )

@@ -17,16 +17,16 @@
 package aliasfynego
 
 import (
+	"aletheiaware.com/aliasgo"
+	"aletheiaware.com/bcclientgo"
+	"aletheiaware.com/bcfynego"
+	"aletheiaware.com/bcgo"
 	"encoding/base64"
 	"fmt"
 	"fyne.io/fyne"
 	"fyne.io/fyne/dialog"
 	"fyne.io/fyne/theme"
 	"fyne.io/fyne/widget"
-	"github.com/AletheiaWareLLC/aliasgo"
-	"github.com/AletheiaWareLLC/bcclientgo"
-	"github.com/AletheiaWareLLC/bcfynego"
-	"github.com/AletheiaWareLLC/bcgo"
 )
 
 type AliasFyne struct {
