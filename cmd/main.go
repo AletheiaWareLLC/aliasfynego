@@ -32,7 +32,6 @@ import (
 	"fyne.io/fyne/theme"
 	"fyne.io/fyne/widget"
 	"log"
-	"os"
 )
 
 var peer = flag.String("peer", "", "Alias peer")
@@ -49,11 +48,6 @@ func main() {
 
 	// Create Window
 	w := a.NewWindow("Alias")
-
-	// Set environment variable
-	if a.Settings().BuildType() == fyne.BuildRelease {
-		os.Setenv("LIVE", "true")
-	}
 
 	// Create BC client
 	c := bcclientgo.NewBCClient(bcgo.SplitRemoveEmpty(*peer, ",")...)
