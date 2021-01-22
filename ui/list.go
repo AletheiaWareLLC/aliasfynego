@@ -20,8 +20,8 @@ import (
 	"aletheiaware.com/aliasgo"
 	"aletheiaware.com/bcgo"
 	"encoding/base64"
-	"fyne.io/fyne"
-	"fyne.io/fyne/widget"
+	"fyne.io/fyne/v2"
+	"fyne.io/fyne/v2/widget"
 	"log"
 	"sort"
 )
@@ -63,6 +63,7 @@ func NewAliasList(callback func(id string, timestamp uint64, alias *aliasgo.Alia
 		if a, ok := l.aliases[i]; ok && callback != nil {
 			callback(i, l.timestamps[i], a)
 		}
+		l.Unselect(id) // TODO FIXME Hack
 	}
 	l.ExtendBaseWidget(l)
 	return l

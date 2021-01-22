@@ -25,12 +25,12 @@ import (
 	"aletheiaware.com/bcfynego/ui/data"
 	"aletheiaware.com/bcgo"
 	"flag"
-	"fyne.io/fyne"
-	"fyne.io/fyne/app"
-	"fyne.io/fyne/container"
-	"fyne.io/fyne/dialog"
-	"fyne.io/fyne/theme"
-	"fyne.io/fyne/widget"
+	"fyne.io/fyne/v2"
+	"fyne.io/fyne/v2/app"
+	"fyne.io/fyne/v2/container"
+	"fyne.io/fyne/v2/dialog"
+	"fyne.io/fyne/v2/theme"
+	"fyne.io/fyne/v2/widget"
 	"log"
 )
 
@@ -84,7 +84,7 @@ func main() {
 			go refreshList()
 		}),
 		widget.NewToolbarSpacer(),
-		widget.NewToolbarAction(data.NewPrimaryThemedResource(data.AccountIcon), func() {
+		widget.NewToolbarAction(theme.NewThemedResource(data.AccountIcon), func() {
 			go f.ShowAccount(c)
 		}),
 		widget.NewToolbarAction(theme.HelpIcon(), func() {

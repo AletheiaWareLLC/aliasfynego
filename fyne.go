@@ -23,10 +23,11 @@ import (
 	"aletheiaware.com/bcgo"
 	"encoding/base64"
 	"fmt"
-	"fyne.io/fyne"
-	"fyne.io/fyne/dialog"
-	"fyne.io/fyne/theme"
-	"fyne.io/fyne/widget"
+	"fyne.io/fyne/v2"
+	"fyne.io/fyne/v2/container"
+	"fyne.io/fyne/v2/dialog"
+	"fyne.io/fyne/v2/theme"
+	"fyne.io/fyne/v2/widget"
 )
 
 type AliasFyne struct {
@@ -49,8 +50,8 @@ func (f *AliasFyne) ShowAlias(client *bcclientgo.BCClient, id string, timestamp 
 		publicKeyRunes = append(publicKeyRunes, r)
 	}
 
-	aliasScroller := widget.NewHScrollContainer(widget.NewLabel(alias.Alias))
-	publicKeyScroller := widget.NewHScrollContainer(widget.NewLabelWithStyle(string(publicKeyRunes), fyne.TextAlignLeading, fyne.TextStyle{Monospace: true}))
+	aliasScroller := container.NewHScroll(widget.NewLabel(alias.Alias))
+	publicKeyScroller := container.NewHScroll(widget.NewLabelWithStyle(string(publicKeyRunes), fyne.TextAlignLeading, fyne.TextStyle{Monospace: true}))
 	publicKeyScroller.SetMinSize(fyne.NewSize(10*theme.TextSize(), 0))
 
 	form := widget.NewForm(
