@@ -20,8 +20,8 @@ import (
 	"aletheiaware.com/aliasgo"
 	"aletheiaware.com/bcclientgo"
 	"aletheiaware.com/bcfynego"
+	"aletheiaware.com/bcfynego/ui"
 	"aletheiaware.com/bcgo"
-	"encoding/base64"
 	"fmt"
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/container"
@@ -41,18 +41,9 @@ func NewAliasFyne(a fyne.App, w fyne.Window) *AliasFyne {
 }
 
 func (f *AliasFyne) ShowAlias(client *bcclientgo.BCClient, id string, timestamp uint64, alias *aliasgo.Alias) {
-	publicKeyBase64 := base64.RawURLEncoding.EncodeToString(alias.PublicKey)
-	var publicKeyRunes []rune
-	for i, r := range []rune(publicKeyBase64) {
-		if i > 0 && i%64 == 0 {
-			publicKeyRunes = append(publicKeyRunes, '\n')
-		}
-		publicKeyRunes = append(publicKeyRunes, r)
-	}
-
-	aliasScroller := container.NewHScroll(widget.NewLabel(alias.Alias))
-	publicKeyScroller := container.NewHScroll(widget.NewLabelWithStyle(string(publicKeyRunes), fyne.TextAlignLeading, fyne.TextStyle{Monospace: true}))
-	publicKeyScroller.SetMinSize(fyne.NewSize(10*theme.TextSize(), 0))
+	aliasScroller := container.NewHScroll(ui.NewAliasView(func() string { return alias.Alias }))
+	publicKeyScroller := container.NewVScroll(ui.NewKeyView(func() []byte { return alias.PublicKey }))
+	publicKeyScroller.SetMinSize(fyne.NewSize(0, 10*theme.TextSize())) // Show at least 10 lines
 
 	form := widget.NewForm(
 		widget.NewFormItem(
@@ -72,6 +63,7 @@ func (f *AliasFyne) ShowAlias(client *bcclientgo.BCClient, id string, timestamp 
 		d.Hide()
 	}
 	f.Dialog = dialog.NewCustom("Alias", "OK", form, f.Window)
+	f.Dialog.Resize(ui.DialogSize)
 	f.Dialog.Show()
 }
 

@@ -25,7 +25,6 @@ import (
 	"aletheiaware.com/bcfynego/ui/data"
 	"aletheiaware.com/bcgo"
 	"flag"
-	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/app"
 	"fyne.io/fyne/v2/container"
 	"fyne.io/fyne/v2/dialog"
@@ -114,7 +113,7 @@ func main() {
 
 	// Set window content, resize window, center window, show window, and run application
 	w.SetContent(container.NewBorder(t, b, nil, nil, l))
-	w.Resize(fyne.NewSize(800, 600))
+	w.Resize(bcui.WindowSize)
 	w.CenterOnScreen()
 	w.ShowAndRun()
 }
