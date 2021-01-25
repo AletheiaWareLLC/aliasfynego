@@ -21,7 +21,6 @@ import (
 	"aletheiaware.com/bcclientgo"
 	"aletheiaware.com/bcfynego"
 	"aletheiaware.com/bcfynego/ui"
-	"aletheiaware.com/bcgo"
 	"fmt"
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/container"
@@ -41,14 +40,15 @@ func NewAliasFyne(a fyne.App, w fyne.Window) *AliasFyne {
 }
 
 func (f *AliasFyne) ShowAlias(client *bcclientgo.BCClient, id string, timestamp uint64, alias *aliasgo.Alias) {
-	aliasScroller := container.NewHScroll(ui.NewAliasView(func() string { return alias.Alias }))
-	publicKeyScroller := container.NewVScroll(ui.NewKeyView(func() []byte { return alias.PublicKey }))
+	timestampScroller := container.NewHScroll(ui.NewTimestampLabel(timestamp))
+	aliasScroller := container.NewHScroll(ui.NewAliasLabel(alias.Alias))
+	publicKeyScroller := container.NewVScroll(ui.NewKeyLabel(alias.PublicKey))
 	publicKeyScroller.SetMinSize(fyne.NewSize(0, 10*theme.TextSize())) // Show at least 10 lines
 
 	form := widget.NewForm(
 		widget.NewFormItem(
 			"Timestamp",
-			widget.NewLabel(bcgo.TimestampToString(timestamp)),
+			timestampScroller,
 		),
 		widget.NewFormItem(
 			"Alias",
@@ -63,8 +63,8 @@ func (f *AliasFyne) ShowAlias(client *bcclientgo.BCClient, id string, timestamp 
 		d.Hide()
 	}
 	f.Dialog = dialog.NewCustom("Alias", "OK", form, f.Window)
-	f.Dialog.Resize(ui.DialogSize)
 	f.Dialog.Show()
+	f.Dialog.Resize(ui.DialogSize)
 }
 
 func (f *AliasFyne) ShowHelp(client *bcclientgo.BCClient) {
