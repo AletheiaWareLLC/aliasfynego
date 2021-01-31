@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Copyright 2020 Aletheia Ware LLC
+# Copyright 2020-2021 Aletheia Ware LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -21,4 +21,4 @@ set -x
 go fmt $GOPATH/src/aletheiaware.com/aliasfynego/...
 go vet $GOPATH/src/aletheiaware.com/aliasfynego/...
 go test $GOPATH/src/aletheiaware.com/aliasfynego/...
-go run -tags mobile aletheiaware.com/aliasfynego/cmd $@
+go run aletheiaware.com/aliasfynego/cmd/aliasfyne $@
