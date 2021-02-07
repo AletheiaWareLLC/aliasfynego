@@ -21,8 +21,7 @@ set -x
 go fmt $GOPATH/src/aletheiaware.com/{aliasfynego,aliasfynego/...}
 go vet $GOPATH/src/aletheiaware.com/{aliasfynego,aliasfynego/...}
 go test $GOPATH/src/aletheiaware.com/{aliasfynego,aliasfynego/...}
-ANDROID_NDK_HOME=${ANDROID_HOME}/ndk-bundle/
-(cd $GOPATH/src/aletheiaware.com/aliasfynego/cmd/aliasfyne && fyne package -os android -appID com.aletheiaware.alias -icon $GOPATH/src/aletheiaware.com/aliasfynego/ui/data/logo.png -name Alias_unaligned)
+(cd $GOPATH/src/aletheiaware.com/aliasfynego/cmd/aliasfyne && fyne package -os android -appID com.aletheiaware.alias -name Alias_unaligned)
 (cd $GOPATH/src/aletheiaware.com/aliasfynego/cmd/aliasfyne && ${ANDROID_HOME}/build-tools/28.0.3/zipalign -f 4 Alias_unaligned.apk Alias.apk)
 (cd $GOPATH/src/aletheiaware.com/aliasfynego/cmd/aliasfyne && adb install -r -g Alias.apk)
 (cd $GOPATH/src/aletheiaware.com/aliasfynego/cmd/aliasfyne && adb logcat -c && adb logcat | tee android.log)
