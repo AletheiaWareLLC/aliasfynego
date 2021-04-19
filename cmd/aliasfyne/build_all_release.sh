@@ -21,8 +21,8 @@ set -x
 go fmt $GOPATH/src/aletheiaware.com/aliasfynego/...
 go vet $GOPATH/src/aletheiaware.com/aliasfynego/...
 go test $GOPATH/src/aletheiaware.com/aliasfynego/...
-fyne-cross android -app-id com.aletheiaware.alias -app-version 1.1.10 -keystore=/app/private/Alias.keystore -output Alias -release ./cmd/aliasfyne/
-fyne-cross darwin -app-id com.aletheiaware.alias -app-version 1.1.10 -output Alias -release ./cmd/aliasfyne/
-fyne-cross ios -app-id com.aletheiaware.alias -app-version 1.1.10 -output Alias -release ./cmd/aliasfyne/
-fyne-cross linux -app-id com.aletheiaware.alias -app-version 1.1.10 -output alias -release ./cmd/aliasfyne/
-fyne-cross windows -app-id com.aletheiaware.alias -app-version 1.1.10 -output alias -release ./cmd/aliasfyne/
+fyne-cross android -app-id com.aletheiaware.alias -app-version 1.2.0 -keystore=/app/private/Alias.keystore -output Alias -release ./cmd/aliasfyne/
+fyne-cross darwin -app-id com.aletheiaware.alias -app-version 1.2.0 -output Alias -release ./cmd/aliasfyne/
+fyne-cross ios -app-id com.aletheiaware.alias -app-version 1.2.0 -output Alias -release ./cmd/aliasfyne/
+fyne-cross linux -app-id com.aletheiaware.alias -app-version 1.2.0 -output alias -release ./cmd/aliasfyne/
+fyne-cross windows -app-id com.aletheiaware.alias -app-version 1.2.0 -output alias -release ./cmd/aliasfyne/
