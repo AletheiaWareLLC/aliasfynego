@@ -29,21 +29,28 @@ import (
 	"fyne.io/fyne/v2/widget"
 )
 
-type AliasFyne struct {
+type AliasFyne interface {
+	bcfynego.BCFyne
+	ShowAlias(bcclientgo.BCClient, string, uint64, *aliasgo.Alias)
+	ShowHelp(bcclientgo.BCClient)
+}
+
+type aliasFyne struct {
 	bcfynego.BCFyne
 }
 
-func NewAliasFyne(a fyne.App, w fyne.Window) *AliasFyne {
-	return &AliasFyne{
-		BCFyne: *bcfynego.NewBCFyne(a, w),
+func NewAliasFyne(a fyne.App, w fyne.Window) AliasFyne {
+	return &aliasFyne{
+		BCFyne: bcfynego.NewBCFyne(a, w),
 	}
 }
 
-func (f *AliasFyne) ShowAlias(client *bcclientgo.BCClient, id string, timestamp uint64, alias *aliasgo.Alias) {
+func (f *aliasFyne) ShowAlias(client bcclientgo.BCClient, id string, timestamp uint64, alias *aliasgo.Alias) {
 	timestampScroller := container.NewHScroll(ui.NewTimestampLabel(timestamp))
 	aliasScroller := container.NewHScroll(ui.NewAliasLabel(alias.Alias))
-	publicKeyScroller := container.NewVScroll(ui.NewKeyLabel(alias.PublicKey))
-	publicKeyScroller.SetMinSize(fyne.NewSize(0, 10*theme.TextSize())) // Show at least 10 lines
+	bytesScroller := container.NewVScroll(ui.NewKeyLabel(alias.PublicKey))
+	bytesScroller.SetMinSize(fyne.NewSize(0, 10*theme.TextSize())) // Show at least 10 lines
+	formatScroller := container.NewVScroll(widget.NewLabel(alias.PublicFormat.String()))
 
 	form := widget.NewForm(
 		widget.NewFormItem(
@@ -56,15 +63,19 @@ func (f *AliasFyne) ShowAlias(client *bcclientgo.BCClient, id string, timestamp 
 		),
 		widget.NewFormItem(
 			"Public Key",
-			publicKeyScroller,
+			bytesScroller,
+		),
+		widget.NewFormItem(
+			"Public Key Format",
+			formatScroller,
 		),
 	)
-	dialog := dialog.NewCustom("Alias", "OK", form, f.Window)
+	dialog := dialog.NewCustom("Alias", "OK", form, f.Window())
 	dialog.Show()
 	dialog.Resize(ui.DialogSize)
 }
 
-func (f *AliasFyne) ShowHelp(client *bcclientgo.BCClient) {
+func (f *aliasFyne) ShowHelp(client bcclientgo.BCClient) {
 	// TODO
 	f.ShowError(fmt.Errorf("Not yet implemented: %s", "AliasFyne.ShowHelp"))
 }

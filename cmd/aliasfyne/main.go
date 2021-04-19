@@ -61,13 +61,13 @@ func main() {
 
 	refreshList := func() {
 		// Get local cache
-		cache, err := c.GetCache()
+		cache, err := c.Cache()
 		if err != nil {
 			f.ShowError(err)
 			return
 		}
 		// Get global network
-		network, err := c.GetNetwork()
+		network, err := c.Network()
 		if err != nil {
 			f.ShowError(err)
 			return
@@ -92,13 +92,13 @@ func main() {
 	)
 	b := widget.NewButton("Register", func() {
 		go func() {
-			node, err := f.GetNode(c)
+			node, err := f.Node(c)
 			if err != nil {
 				f.ShowError(err)
 				return
 			}
 			// Show Progress Dialog
-			progress := dialog.NewProgress("Registering", "Registering "+node.Alias, f.Window)
+			progress := dialog.NewProgress("Registering", "Registering "+node.Account().Alias(), f.Window())
 			progress.Show()
 			defer progress.Hide()
 			listener := &bcui.ProgressMiningListener{Func: progress.SetValue}
