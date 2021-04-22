@@ -21,6 +21,6 @@ set -x
 go fmt $GOPATH/src/aletheiaware.com/{aliasfynego,aliasfynego/...}
 go vet $GOPATH/src/aletheiaware.com/{aliasfynego,aliasfynego/...}
 go test $GOPATH/src/aletheiaware.com/{aliasfynego,aliasfynego/...}
-(cd $GOPATH/src/aletheiaware.com/aliasfynego/cmd/aliasfyne && fyne release -os android -appID com.aletheiaware.alias -appBuild 1 -appVersion 1.2.1 -keyStore=$GOPATH/src/aletheiaware.com/aliasfynego/private/Alias.keystore -name Alias)
+(cd $GOPATH/src/aletheiaware.com/aliasfynego/cmd/aliasfyne && fyne release -os android -appID com.aletheiaware.alias -appBuild 1 -appVersion 1.2.2 -keyStore=$GOPATH/src/aletheiaware.com/aliasfynego/private/Alias.keystore -name Alias)
 (cd $GOPATH/src/aletheiaware.com/aliasfynego/cmd/aliasfyne && adb install -r -g Alias.apk)
 (cd $GOPATH/src/aletheiaware.com/aliasfynego/cmd/aliasfyne && adb logcat -c && adb logcat | tee android.log)

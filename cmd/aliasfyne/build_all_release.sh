@@ -21,8 +21,8 @@ set -x
 go fmt $GOPATH/src/aletheiaware.com/aliasfynego/...
 go vet $GOPATH/src/aletheiaware.com/aliasfynego/...
 go test $GOPATH/src/aletheiaware.com/aliasfynego/...
-fyne-cross android -app-id com.aletheiaware.alias -app-version 1.2.1 -icon ./cmd/aliasfyne/Icon.png -keystore=/app/private/Alias.keystore -output Alias -release ./cmd/aliasfyne/
-fyne-cross darwin -app-id com.aletheiaware.alias -app-version 1.2.1 -category utilities -icon ./cmd/aliasfyne/Icon.png -output Alias -release ./cmd/aliasfyne/
-fyne-cross ios -app-id com.aletheiaware.alias -app-version 1.2.1 -icon ./cmd/aliasfyne/Icon.png -output Alias -release ./cmd/aliasfyne/
-fyne-cross linux -app-id com.aletheiaware.alias -app-version 1.2.1 -icon ./cmd/aliasfyne/Icon.png -output alias -release ./cmd/aliasfyne/
-fyne-cross windows -app-id com.aletheiaware.alias -app-version 1.2.1 -icon ./cmd/aliasfyne/Icon.png -output alias -release ./cmd/aliasfyne/
+fyne-cross android -app-id com.aletheiaware.alias -app-version 1.2.2 -icon ./cmd/aliasfyne/Icon.png -keystore=/app/private/Alias.keystore -output Alias -release ./cmd/aliasfyne/
+fyne-cross darwin -app-id com.aletheiaware.alias -app-version 1.2.2 -category utilities -icon ./cmd/aliasfyne/Icon.png -output Alias -release ./cmd/aliasfyne/
+fyne-cross ios -app-id com.aletheiaware.alias -app-version 1.2.2 -icon ./cmd/aliasfyne/Icon.png -output Alias -release ./cmd/aliasfyne/
+fyne-cross linux -app-id com.aletheiaware.alias -app-version 1.2.2 -icon ./cmd/aliasfyne/Icon.png -output alias -release ./cmd/aliasfyne/
+fyne-cross windows -app-id com.aletheiaware.alias -app-version 1.2.2 -icon ./cmd/aliasfyne/Icon.png -output alias -release ./cmd/aliasfyne/
